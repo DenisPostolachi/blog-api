@@ -11,6 +11,11 @@ final class Comment extends Model
 {
     use HasFactory;
 
+    protected $table = 'comments';
+
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'text',
         'author_id',
