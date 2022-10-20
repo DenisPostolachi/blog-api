@@ -13,8 +13,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->foreignId('author_id');
-            $table->foreignId('article_id');
+            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('article_id')->references('id')->on('articles');
         });
     }
 
