@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Article;
@@ -13,7 +15,7 @@ class CommentFactory extends Factory
         return [
             "text" => fake()->text,
             'author_id' => User::factory(),
-            'article_id' => Article::factory()
+            'article_id' => Article::factory(),
         ];
     }
 }
