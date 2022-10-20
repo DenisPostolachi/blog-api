@@ -13,7 +13,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('text');
+            $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
+            $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles');
         });
     }
