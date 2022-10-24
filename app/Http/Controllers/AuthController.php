@@ -4,36 +4,33 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegistrationRequest;
+use App\Http\Resources\Auth\LoginResource;
+use App\Http\Resources\Auth\RegistrationResource;
+use App\Services\Auth\AuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
-class AuthController extends Controller
+final class AuthController extends Controller
 {
-    public function register(Request $request): object
+    public function __construct(
+        private AuthService $authService,
+    )
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
-
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
     }
 
-    public function login(Request $request): object
+    public function register(RegistrationRequest $request): JsonResponse
+    {
+        $user = $this->authService->registration($request);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(new RegistrationResource($token), Response::HTTP_CREATED);
+    }
+
+    public function login(LoginRequest $request): JsonResponse
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
@@ -41,18 +38,13 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
-
+        $user = $this->authService->login($request);
         $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return response()->json(new LoginResource($token), Response::HTTP_CREATED);
     }
 
     public function me(Request $request): object
     {
-        return $request->user();
+        return Auth::user();
     }
 }
