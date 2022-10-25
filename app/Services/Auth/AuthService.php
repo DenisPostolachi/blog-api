@@ -6,9 +6,7 @@ namespace App\Services\Auth;
 
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Models\User;
-use App\Repositories\Auth\AuthRepository;
 use Illuminate\Support\Facades\Hash;
-
 
 final class AuthService
 {
