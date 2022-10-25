@@ -7,18 +7,19 @@ namespace App\Services\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\Auth\AuthRepository;
+
 
 final class AuthService
 {
-    public function registration(RegistrationRequest $request): User
+    public function __construct(
+        private AuthRepository $authRepository,
+    ) {
+    }
+
+    public function registration(RegistrationRequest $request)
     {
-        dd($request);
-        return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        return $this->authRepository->getFirstOrFailByEmail($request);
     }
 
     public function login(LoginRequest $request): User
