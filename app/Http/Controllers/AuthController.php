@@ -40,6 +40,7 @@ final class AuthController extends Controller
 
         $user = $this->authService->login($request);
         $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json(new LoginResource($token), Response::HTTP_CREATED);
     }
 

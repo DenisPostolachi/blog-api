@@ -9,10 +9,11 @@ use App\Http\Requests\Auth\RegistrationRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class AuthService
+final class AuthService
 {
     public function registration(RegistrationRequest $request): User
     {
+        dd($request);
         return User::create([
             'name' => $request->name,
             'email' => $request->email,
