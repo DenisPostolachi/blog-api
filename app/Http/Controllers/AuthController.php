@@ -11,7 +11,6 @@ use App\Http\Resources\Auth\RegistrationResource;
 use App\Repositories\Auth\AuthRepository;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -40,14 +39,9 @@ final class AuthController extends Controller
             ], 401);
         }
 
-        $user = $this->authRepository->getFirstOrFailByEmail($request);
+        $user = $this->authRepository->getFirstOrFailByEmail($request->email);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(new LoginResource($token), Response::HTTP_CREATED);
-    }
-
-    public function me(Request $request): object
-    {
-        return Auth::user();
     }
 }
