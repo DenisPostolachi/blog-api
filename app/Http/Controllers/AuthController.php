@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Http\Resources\Auth\LoginResource;
 use App\Http\Resources\Auth\RegistrationResource;
+use App\Models\User;
 use App\Repositories\Auth\AuthRepository;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -44,10 +45,5 @@ final class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(new LoginResource($token), Response::HTTP_CREATED);
-    }
-
-    public function me(Request $request): object
-    {
-        return Auth::user();
     }
 }

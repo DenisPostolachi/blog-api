@@ -17,6 +17,9 @@ class RegistrationResource extends JsonResource
         $this->token = $token;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray($request): array
     {
         return [

@@ -14,7 +14,9 @@ final class LoginResource extends JsonResource
         parent::__construct($token);
     }
 
-
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray($request): array
     {
         return [

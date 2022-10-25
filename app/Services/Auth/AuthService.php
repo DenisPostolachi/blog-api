@@ -6,11 +6,12 @@ namespace App\Services\Auth;
 
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
 final class AuthService
 {
-    public function registration(RegistrationRequest $request)
+    public function registration(RegistrationRequest $request): User
     {
         return User::create([
             'name' => $request->name,
