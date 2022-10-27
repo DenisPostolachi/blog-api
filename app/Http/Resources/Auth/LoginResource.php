@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Auth;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 final class LoginResource extends JsonResource
