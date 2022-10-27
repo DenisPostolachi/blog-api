@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Articles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Articles\ArticleRequest;
 use App\Http\Resources\Articles\ArticleResource;
-use App\Models\Article;
 use App\Repositories\Article\ArticleRepository;
 use App\Services\Articles\ArticleService;
 use Illuminate\Http\JsonResponse;
