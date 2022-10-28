@@ -20,12 +20,10 @@ final class ArticleResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $authorName = Article::first()->author->name;
-
         return [
             'title' => $this->article->title,
             'text' => $this->article->text,
-            'author_name' => $authorName
+            'author_name' => $this->article->author->name,
         ];
     }
 }
