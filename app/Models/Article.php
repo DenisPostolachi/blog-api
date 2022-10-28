@@ -16,4 +16,9 @@ final class Article extends Model
         'text',
         'author_id',
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }
