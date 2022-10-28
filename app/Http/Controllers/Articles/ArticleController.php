@@ -39,4 +39,10 @@ final class ArticleController extends Controller
     {
        return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
+
+    public function update(ArticleRequest $request, Article $article): JsonResponse
+    {
+        $article->update(request()->all());
+        return response()->json(new ArticleResource($article), Response::HTTP_OK);
+    }
 }
