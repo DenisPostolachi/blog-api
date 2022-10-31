@@ -18,4 +18,13 @@ final class ArticleService
             'author_id' => Auth::id()]
         );
     }
+
+    public function updateArticle(ArticleData $articleData, Article $article): void
+    {
+         $article->update([
+            'title' => $articleData->getTitle(),
+            'text' => $articleData->getText(),
+            'author_id' => Auth::id()
+        ]);
+    }
 }

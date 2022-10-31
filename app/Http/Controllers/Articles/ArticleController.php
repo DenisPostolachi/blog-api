@@ -45,8 +45,8 @@ final class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article): JsonResponse
     {
-        $article->update(request()->all());
-
+        $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
+        $article = $this->articleService->updateArticle($articleData, $article);
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
 }

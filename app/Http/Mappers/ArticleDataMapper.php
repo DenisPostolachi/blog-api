@@ -11,14 +11,12 @@ final class ArticleDataMapper
 {
     public function mapFromRequestToNormalized(ArticleRequest $request): ArticleData
     {
-        $articleData = (new ArticleData())
+        return (new ArticleData())
             ->setTitle($request->title)
             ->setText($request->text)
             ->setStartDate($request->start_date)
             ->setEndDate($request->end_date)
         ;
-
-        return $articleData;
     }
 
 }
