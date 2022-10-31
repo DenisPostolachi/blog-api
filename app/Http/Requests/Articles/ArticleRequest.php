@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Articles;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseRequest;
 
 /**
  * @property string $title
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $start_date
  * @property string $end_date
  */
-final class ArticleRequest extends FormRequest
+final class ArticleRequest extends BaseRequest
 {
     /**
      * @return string[][]

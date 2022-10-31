@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\Repositories\Article\ArticleRepository;
 use App\Services\Articles\ArticleService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ArticleController extends Controller
@@ -19,7 +20,7 @@ final class ArticleController extends Controller
     public function __construct(
         private ArticleService $articleService,
         private ArticleRepository $articleRepository,
-        private ArticleDataMapper $articleDataMapper
+        private ArticleDataMapper $articleDataMapper,
     ) {
     }
 
@@ -32,8 +33,9 @@ final class ArticleController extends Controller
 
     public function store(ArticleRequest $request): JsonResponse
     {
+        $user = Auth::user();
         $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
-        $article = $this->articleService->createArticle($articleData);
+        $article = $this->articleService->createArticle($articleData, $user);
 
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
@@ -45,8 +47,10 @@ final class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article): JsonResponse
     {
+        $user = Auth::user();
         $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
-        $this->articleService->updateArticle($articleData, $article);
+        $this->articleService->updateArticle($articleData, $article, $user);
+
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
 }

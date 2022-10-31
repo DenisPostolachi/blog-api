@@ -15,8 +15,7 @@ final class ArticleDataMapper
             ->setTitle($request->title)
             ->setText($request->text)
             ->setStartDate($request->start_date)
-            ->setEndDate($request->end_date)
-        ;
+            ->setEndDate($request->end_date);
     }
 
 }

@@ -8,7 +8,7 @@ final class ArticleData
 {
     private string $title;
     private string $text;
-    private int $author_id;
+    private int $authorId;
     private ?string $startDate = null;
     private ?string $endDate = null;
 
@@ -38,12 +38,12 @@ final class ArticleData
 
     public function getAuthorId(): int
     {
-        return $this->author_id;
+        return $this->authorId;
     }
 
     public function setAuthorId(int $authorId): self
     {
-        $this->author_id = $authorId;
+        $this->authorId = $authorId;
 
         return $this;
     }
