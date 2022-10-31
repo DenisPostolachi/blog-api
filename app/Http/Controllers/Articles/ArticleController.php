@@ -33,9 +33,9 @@ final class ArticleController extends Controller
 
     public function store(ArticleRequest $request): JsonResponse
     {
-        $user = Auth::user();
         $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
-        $article = $this->articleService->createArticle($articleData, $user);
+        //@phpstan-ignore-next-line
+        $article = $this->articleService->createArticle($articleData, Auth::id());
 
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
@@ -47,9 +47,9 @@ final class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article): JsonResponse
     {
-        $user = Auth::user();
         $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
-        $this->articleService->updateArticle($articleData, $article, $user);
+        //@phpstan-ignore-next-line
+        $this->articleService->updateArticle($articleData, $article, Auth::id());
 
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
