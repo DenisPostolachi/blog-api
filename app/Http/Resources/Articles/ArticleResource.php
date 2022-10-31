@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Resources\Articles;
 
 use App\Models\Article;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
 final class ArticleResource extends JsonResource
@@ -23,7 +22,7 @@ final class ArticleResource extends JsonResource
         return [
             'title' => $this->article->title,
             'text' => $this->article->text,
-            'author_name' => $this->article->author->name,
+            'author' => $this->article->author->name,
         ];
     }
 }
