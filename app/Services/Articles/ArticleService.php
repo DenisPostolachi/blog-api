@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services\Articles;
 
-use App\Http\Requests\Articles\ArticleRequest;
+use App\Data\ArticleData;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 
 final class ArticleService
 {
-    public function createArticle(ArticleRequest $request): Article
+    public function createArticle(ArticleData $articleData ): Article
     {
         return Article::create([
-            'title' => $request->title,
-            'text' => $request->text,
+            'title' => $articleData->getTitle(),
+            'text' => $articleData->getText(),
             'author_id' => Auth::id()]
         );
     }

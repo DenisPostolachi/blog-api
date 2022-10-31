@@ -16,6 +16,8 @@ final class ArticleRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'min:4', 'max:255'],
             'text' => ['required', 'string', 'min:4', 'max:255'],
+            'start_date'    => ['nullable', 'date'],
+            'end_date'      => ['nullable', 'date', 'after:start_date'],
         ];
     }
 }
