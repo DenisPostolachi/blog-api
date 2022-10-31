@@ -17,5 +17,4 @@ final class ArticleDataMapper
             ->setStartDate($request->start_date)
             ->setEndDate($request->end_date);
     }
-
 }

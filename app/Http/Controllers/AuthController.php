@@ -22,9 +22,9 @@ final class AuthController extends Controller
         private AuthService $authService,
         private AuthRepository $authRepository,
         private LoginDataMapper $loginDataMapper,
-        private RegisterDataMapper $registerDataMapper
-    )
-    {}
+        private RegisterDataMapper $registerDataMapper,
+    ){
+    }
 
     public function register(RegistrationRequest $request): JsonResponse
     {

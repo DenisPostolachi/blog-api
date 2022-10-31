@@ -13,10 +13,11 @@ final class ArticleService
     public function createArticle(ArticleData $articleData, int $userId): Article
     {
         return Article::create([
-            'title' => $articleData->getTitle(),
-            'text' => $articleData->getText(),
-            'author_id' => $userId,
-        ]);
+                'title' => $articleData->getTitle(),
+                'text' => $articleData->getText(),
+                'author_id' => $userId,
+            ]
+        );
     }
 
     public function updateArticle(ArticleData $articleData, Article $article, int $userId): void
