@@ -49,7 +49,7 @@ final class ArticleController extends Controller
     {
         $articleData = $this->articleDataMapper->mapFromRequestToNormalized($request);
         //@phpstan-ignore-next-line
-        $this->articleService->updateArticle($articleData, $article, Auth::id());
+        $article = $this->articleService->updateArticle($articleData, $article, Auth::id());
 
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
