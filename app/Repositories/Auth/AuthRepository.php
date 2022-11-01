@@ -8,8 +8,8 @@ use App\Models\User;
 
 class AuthRepository
 {
-    public function getFirstOrFailByEmail(string $mail): User
+    public function getFirstOrFailByEmail(string $email): User
     {
-        return User::where('email', $mail)->firstOrFail();
+        return User::where('email', $email)->firstOrFail();
     }
 }

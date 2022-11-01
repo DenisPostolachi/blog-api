@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Mappers\LoginDataMapper;
+use App\Http\Mappers\RegisterDataMapper;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Http\Resources\Auth\LoginResource;
@@ -19,13 +21,15 @@ final class AuthController extends Controller
     public function __construct(
         private AuthService $authService,
         private AuthRepository $authRepository,
-    )
-    {
+        private LoginDataMapper $loginDataMapper,
+        private RegisterDataMapper $registerDataMapper,
+    ){
     }
 
     public function register(RegistrationRequest $request): JsonResponse
     {
-        $user = $this->authService->registration($request);
+        $registerData = $this->registerDataMapper->mapFromRequestToNormalized($request);
+        $user = $this->authService->registration($registerData);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(new RegistrationResource($token), Response::HTTP_CREATED);
@@ -39,7 +43,8 @@ final class AuthController extends Controller
             ], 401);
         }
 
-        $user = $this->authRepository->getFirstOrFailByEmail($request->email);
+        $loginData = $this->loginDataMapper->mapFromRequestToNormalized($request);
+        $user = $this->authRepository->getFirstOrFailByEmail($loginData->email);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(new LoginResource($token), Response::HTTP_CREATED);
