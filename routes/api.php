@@ -25,7 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::apiResource('articles',ArticleController::class)->middleware('auth:sanctum');
+Route::apiResource('articles', ArticleController::class)->middleware('auth:sanctum');
 
-Route::post('articles/{article}/comments', [CommentController::class, 'store'])->name('articles.comments-store')->middleware('auth:sanctum');
-Route::put('articles/{article}/comments/{comment}', [CommentController::class, 'update'])->name('articles.comments-update')->middleware('auth:sanctum')->scopeBindings();
+Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'articles.'], function () {
+    Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
+    Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
+});

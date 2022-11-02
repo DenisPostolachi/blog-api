@@ -14,11 +14,11 @@ use App\Http\Requests\BaseRequest;
 
 final class CommentRequest extends BaseRequest
 {
+    /**
+     * @return string[][]
+     */
     public function rules(): array
     {
-        /**
-         * @return string[][]
-         */
         return [
             'text' => ['required', 'string', 'min:4', 'max:255'],
         ];

@@ -36,6 +36,7 @@ final class CommentController extends Controller
     public function store(Article $article, CommentRequest $request): JsonResponse
     {
         $commentData = $this->commentDataMapper->mapFromRequestToNormalized($request);
+        //@phpstan-ignore-next-line
         $comment = $this->commentService->createComment(Auth::id(), $article->id, $commentData);
 
         return response()->json(new CommentResource($comment), Response::HTTP_OK);
