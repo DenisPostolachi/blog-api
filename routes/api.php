@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Articles\ArticleController;
+use App\Http\Controllers\Comments\CommentController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::apiResource('articles',ArticleController::class)->middleware('auth:sanctum');
+Route::apiResource('articles', ArticleController::class)->middleware('auth:sanctum');
+
+Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'articles.'], function () {
+    Route::get('/{article}/comments', [CommentController::class, 'index'])->name('comments-index');
+    Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
+    Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
+});

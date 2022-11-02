@@ -20,12 +20,14 @@ final class ArticleService
         );
     }
 
-    public function updateArticle(ArticleData $articleData, Article $article, int $userId): void
+    public function updateArticle(ArticleData $articleData, Article $article, int $userId): Article
     {
         $article->update([
             'title' => $articleData->getTitle(),
             'text' => $articleData->getText(),
             'author_id' => $userId
         ]);
+
+        return $article;
     }
 }

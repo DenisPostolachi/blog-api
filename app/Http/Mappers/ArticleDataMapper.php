@@ -7,7 +7,7 @@ namespace App\Http\Mappers;
 use App\Data\ArticleData;
 use App\Http\Requests\Articles\ArticleRequest;
 
-final class ArticleDataMapper
+final class ArticleDataMapper extends PaginationDataMapper
 {
     public function mapFromRequestToNormalized(ArticleRequest $request): ArticleData
     {
