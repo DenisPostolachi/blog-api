@@ -28,9 +28,10 @@ final class CommentController extends Controller
 
     public function index(): JsonResponse
     {
-        $comments = $this->commentRepository->getAll();
+        $comments = $this->commentRepository->getAllWithPagination();
+        $paginatedResponse = $this->commentDataMapper->mapToPaginatedResponse($comments);
 
-        return response()->json(CommentResource::collection($comments), Response::HTTP_OK);
+        return response()->json($paginatedResponse, Response::HTTP_OK);
     }
 
     public function store(Article $article, CommentRequest $request): JsonResponse

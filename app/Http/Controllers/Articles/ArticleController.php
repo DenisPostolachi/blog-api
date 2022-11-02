@@ -26,9 +26,10 @@ final class ArticleController extends Controller
 
     public function index(): JsonResponse
     {
-        $articles = $this->articleRepository->getAll();
+        $articles = $this->articleRepository->getAllWithPagination();
+        $paginatedResponse = $this->articleDataMapper->mapToPaginatedResponse($articles);
 
-        return response()->json(ArticleResource::collection($articles), Response::HTTP_OK);
+        return response()->json($paginatedResponse, Response::HTTP_OK);
     }
 
     public function store(ArticleRequest $request): JsonResponse

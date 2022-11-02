@@ -7,7 +7,7 @@ namespace App\Http\Mappers;
 use App\Data\CommentData;
 use App\Http\Requests\Comments\CommentRequest;
 
-final class CommentDataMapper
+final class CommentDataMapper extends PaginationDataMapper
 {
     public function mapFromRequestToNormalized(CommentRequest $request): CommentData
     {

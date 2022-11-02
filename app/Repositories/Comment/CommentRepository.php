@@ -6,14 +6,12 @@ namespace App\Repositories\Comment;
 
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final class CommentRepository
 {
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getAll(): Collection
+    public function getAllWithPagination(): LengthAwarePaginator
     {
-        return Comment::all();
+        return Comment::paginate(10);
     }
 }

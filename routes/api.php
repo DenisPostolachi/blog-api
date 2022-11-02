@@ -28,6 +28,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResource('articles', ArticleController::class)->middleware('auth:sanctum');
 
 Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'articles.'], function () {
+    Route::get('/{article}/comments', [CommentController::class, 'index'])->name('comments-index');
     Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
     Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
 });
