@@ -32,3 +32,7 @@ Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 
     Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
     Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
 });
+
+Route::group(['prefix' => 'reactions', 'middleware' => 'auth:sanctum', 'name' => 'reactions.'], function () {
+    Route::get('/{article}/reactions', [CommentController::class, 'index'])->name('reactions-index');
+});

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 final class Reaction extends Model
 {
@@ -14,4 +15,9 @@ final class Reaction extends Model
     protected $fillable = [
         'text',
     ];
+
+    public function articles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class);
+    }
 }

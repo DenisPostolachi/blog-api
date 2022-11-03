@@ -11,6 +11,17 @@ final class ReactionSeeder extends Seeder
 {
     public function run(): void
     {
-        Reaction::factory()->count(10)->create();
+        foreach ($this->getReaction() as $reaction) {
+            Reaction::create(['text' => $reaction]);
+        }
+    }
+
+    private function getReaction(): array
+    {
+        return [
+            'smile',
+            'sad',
+            'omg',
+        ];
     }
 }
