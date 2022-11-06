@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Comments;
+namespace App\Http\Requests\Reactions;
 
+use App\enums\Reactions;
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rules\Enum;
 
 /**
  * @property string $text
  */
-
-final class CommentRequest extends BaseRequest
+final class ReactionRequest extends BaseRequest
 {
     /**
      * @return string[][]
@@ -18,7 +19,8 @@ final class CommentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'text' => ['required', 'string', 'min:4', 'max:255'],
+            'text' => [new Enum(Reactions::class)],
         ];
     }
+
 }
