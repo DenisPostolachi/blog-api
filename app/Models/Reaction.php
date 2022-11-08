@@ -16,6 +16,9 @@ final class Reaction extends Model
         'text',
     ];
 
+    /**
+     * @return belongsToMany<Article>
+     */
     public function articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class);

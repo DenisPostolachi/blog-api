@@ -14,7 +14,7 @@ use Illuminate\Validation\Rules\Enum;
 final class ReactionRequest extends BaseRequest
 {
     /**
-     * @return string[][]
+     * @return array<string, mixed>
      */
     public function rules(): array
     {

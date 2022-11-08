@@ -7,7 +7,7 @@ namespace App\Http\Resources\Reactions;
 use App\Models\Reaction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReactionResource extends JsonResource
+final class ReactionResource extends JsonResource
 {
     public function __construct(private Reaction $articleReaction)
     {

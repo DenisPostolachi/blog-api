@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Mappers;
 
 use App\Data\ReactionData;
 use App\Http\Requests\Reactions\ReactionRequest;
-use App\Models\Reaction;
 
 final class ReactionDataMapper
 {

@@ -17,7 +17,7 @@ final class ArticleReactionRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'reaction_id' => ['required', 'integer']
+            'reaction_id' => ['required', 'integer'],
         ];
     }
 }

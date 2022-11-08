@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Reactions;
 
-use App\Data\ArticleReactionData;
+use App\Exceptions\ArticleReactionNotFoundException;
 use App\Http\Mappers\ArticleReactionDataMapper;
 use App\Http\Requests\ArticleReactions\ArticleReactionRequest;
 use App\Http\Resources\ArticleReactions\ArticleReactionResource;
 use App\Http\Resources\Reactions\ReactionResource;
 use App\Models\Article;
-use App\Models\ArticleReaction;
 use App\Models\Reaction;
 use App\Services\ArticleReactions\ArticleReactionService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-
 
 final class ArticleReactionController
 {
@@ -44,8 +42,12 @@ final class ArticleReactionController
     public function update(Article $article, Reaction $reaction, ArticleReactionRequest $request): JsonResponse
     {
         $articleReactionData = $this->articleReactionDataMapper->mapFromRequestToNormalized($request);
-        $articleReaction = $this->articleReactionService->updateArticleReaction($reaction, $articleReactionData, $article->id);
+        try {
+            $articleReaction = $this->articleReactionService->updateArticleReaction($reaction, $articleReactionData, $article->id);
 
-        return response()->json(new ArticleReactionResource($articleReaction), Response::HTTP_OK);
+            return response()->json(new ArticleReactionResource($articleReaction), Response::HTTP_OK);
+        } catch (ArticleReactionNotFoundException) {
+            throw new ArticleReactionNotFoundException('Article reaction not found');
+        }
     }
 }

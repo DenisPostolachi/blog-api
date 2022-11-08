@@ -32,13 +32,16 @@ final class Article extends Model
     }
 
     /**
-     * @return HasMany<Comment, Article>
+     * @return HasMany<Comment>
      */
     public function comments(): hasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * @return belongsToMany<Reaction>
+     */
     public function reactions(): BelongsToMany
     {
         return $this->belongsToMany(Reaction::class);

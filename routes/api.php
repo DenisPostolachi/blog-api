@@ -35,7 +35,7 @@ Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 
 });
 
 Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'reactions.'], function () {
-    Route::get('/{article}/reactions', [ArticleReactionController::class, 'index'])->name('reactions-index');
-    Route::post('/{article}/reactions', [ArticleReactionController::class, 'store'])->name('reactions-store');
-    Route::put('/{article}/reactions/{reaction}', [ArticleReactionController::class, 'update'])->name('reactions-update')->scopeBindings();
+    Route::get('/{article}/reactions', [ArticleReactionController::class, 'index'])->name('reactions.index');
+    Route::post('/{article}/reactions', [ArticleReactionController::class, 'store'])->name('reactions.store');
+    Route::put('/{article}/reactions/{reaction}', [ArticleReactionController::class, 'update'])->name('reactions.update')->scopeBindings();
 });
