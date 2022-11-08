@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Articles\ArticleController;
 use App\Http\Controllers\Comments\CommentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Reactions\ArticleReactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,10 @@ Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 
     Route::get('/{article}/comments', [CommentController::class, 'index'])->name('comments-index');
     Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
     Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
+});
+
+Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'reactions.'], function () {
+    Route::get('/{article}/reactions', [ArticleReactionController::class, 'index'])->name('reactions.index');
+    Route::post('/{article}/reactions', [ArticleReactionController::class, 'store'])->name('reactions.store');
+    Route::put('/{article}/reactions/{reaction}', [ArticleReactionController::class, 'update'])->name('reactions.update')->scopeBindings();
 });

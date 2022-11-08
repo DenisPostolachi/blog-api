@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -31,10 +32,18 @@ final class Article extends Model
     }
 
     /**
-     * @return HasMany<Comment, Article>
+     * @return HasMany<Comment>
      */
     public function comments(): hasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * @return belongsToMany<Reaction>
+     */
+    public function reactions(): BelongsToMany
+    {
+        return $this->belongsToMany(Reaction::class);
     }
 }

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Comments;
+namespace App\Http\Requests\ArticleReactions;
 
 use App\Http\Requests\BaseRequest;
 
 /**
- * @property string $text
+ * @property int $reaction_id
  */
-
-final class CommentRequest extends BaseRequest
+final class ArticleReactionRequest extends BaseRequest
 {
     /**
      * @return string[][]
@@ -18,7 +17,7 @@ final class CommentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'text' => ['required', 'string', 'min:4', 'max:255'],
+            'reaction_id' => ['required', 'integer'],
         ];
     }
 }
