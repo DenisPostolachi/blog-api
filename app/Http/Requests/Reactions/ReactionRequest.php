@@ -22,5 +22,4 @@ final class ReactionRequest extends BaseRequest
             'text' => [new Enum(Reactions::class)],
         ];
     }
-
 }
