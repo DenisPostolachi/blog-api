@@ -10,6 +10,7 @@ use App\Http\Requests\ArticleReactions\ArticleReactionRequest;
 use App\Http\Resources\ArticleReactions\ArticleReactionResource;
 use App\Http\Resources\Reactions\ReactionResource;
 use App\Models\Article;
+use App\Models\ArticleReaction;
 use App\Models\Reaction;
 use App\Services\ArticleReactions\ArticleReactionService;
 use Illuminate\Http\JsonResponse;
@@ -49,5 +50,12 @@ final class ArticleReactionController
         } catch (ArticleReactionNotFoundException) {
             throw new ArticleReactionNotFoundException('Article reaction not found');
         }
+    }
+
+    public function destroy(ArticleReaction $articleReaction): JsonResponse
+    {
+        $articleReaction->delete();
+
+        return response()->json(status: Response::HTTP_OK);
     }
 }

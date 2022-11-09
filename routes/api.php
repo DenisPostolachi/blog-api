@@ -29,13 +29,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResource('articles', ArticleController::class)->middleware('auth:sanctum');
 
 Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'articles.'], function () {
-    Route::get('/{article}/comments', [CommentController::class, 'index'])->name('comments-index');
-    Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments-store');
-    Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments-update')->scopeBindings();
+    Route::get('/{article}/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::get('/{article}/comments/{comment}', [CommentController::class, 'show'])->name('comments.show');
+    Route::post('/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::put('/{article}/comments/{comment}', [CommentController::class, 'update'])->name('comments.update')->scopeBindings();
+    Route::delete('/{article}/comments', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 Route::group(['prefix' => 'articles', 'middleware' => 'auth:sanctum', 'name' => 'reactions.'], function () {
     Route::get('/{article}/reactions', [ArticleReactionController::class, 'index'])->name('reactions.index');
     Route::post('/{article}/reactions', [ArticleReactionController::class, 'store'])->name('reactions.store');
     Route::put('/{article}/reactions/{reaction}', [ArticleReactionController::class, 'update'])->name('reactions.update')->scopeBindings();
+    Route::delete('/{article}/reactions', [ArticleReactionController::class, 'destroy'])->name('reactions.destroy');
 });
