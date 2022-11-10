@@ -43,16 +43,23 @@ final class CommentController extends Controller
         return response()->json(new CommentResource($comment), Response::HTTP_OK);
     }
 
-    public function show(Comment $comment): JsonResponse
+    public function show(Article $article, Comment $comment): JsonResponse
     {
         return response()->json(new CommentResource($comment), Response::HTTP_OK);
     }
 
-    public function update(Comment $comment, CommentRequest $request): JsonResponse
+    public function update(Article $article, Comment $comment, CommentRequest $request): JsonResponse
     {
         $commentData = $this->commentDataMapper->mapFromRequestToNormalized($request);
         $comment = $this->commentService->updateComment($comment, $commentData);
 
         return response()->json(new CommentResource($comment), Response::HTTP_OK);
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+
+        return response()->json(status: Response::HTTP_OK);
     }
 }

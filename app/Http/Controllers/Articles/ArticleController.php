@@ -54,4 +54,11 @@ final class ArticleController extends Controller
 
         return response()->json(new ArticleResource($article), Response::HTTP_OK);
     }
+
+    public function destroy(Article $article): JsonResponse
+    {
+        $article->delete();
+
+        return response()->json(status: Response::HTTP_OK);
+    }
 }
