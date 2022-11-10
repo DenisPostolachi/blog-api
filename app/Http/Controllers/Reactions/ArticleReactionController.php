@@ -32,7 +32,7 @@ final class ArticleReactionController
         return response()->json(ReactionResource::collection($reactions), Response::HTTP_OK);
     }
 
-    public function store(Article $article, ArticleReactionRequest $request): JsonResponse
+    public function store(Article $article, Reaction $reaction,ArticleReactionRequest $request): JsonResponse
     {
         $articleReactionData = $this->articleReactionDataMapper->mapFromRequestToNormalized($request);
         $articleReaction = $this->articleReactionService->createArticleReaction($articleReactionData, $article->id);
