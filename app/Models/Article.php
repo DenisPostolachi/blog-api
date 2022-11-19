@@ -21,6 +21,7 @@ final class Article extends Model
         'title',
         'text',
         'author_id',
+        'status_id'
     ];
 
     /**

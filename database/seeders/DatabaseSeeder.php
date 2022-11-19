@@ -14,6 +14,7 @@ final class DatabaseSeeder extends Seeder
             ArticleSeeder::class,
             CommentSeeder::class,
             ReactionSeeder::class,
+            StatusSeeder::class
         ]);
     }
 }
