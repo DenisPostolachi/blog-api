@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  fd_nginx:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "8082:80"
+    volumes:
+      - ~/nginx/vhost.d:/etc/nginx/vhost.d:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - local_dev
+
+  fd_db:
+    image: mysql
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - fd_nginx
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_DATABASE: api
+      MYSQL_ROOT_PASSWORD: "123"
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - local_dev
+
+  fd_api:
+    build:
+      context: .
+    depends_on:
+      - fd_nginx
+      - fd_db
+    environment:
+      VIRTUAL_HOST: fd.api.loc
+      HOST_IP: "${HOST_IP:-host.docker.internal}"
+    volumes:
+      - .:/var/www/html:delegated
+    restart: always
+    networks:
+      - local_dev
+
+networks:
+  local_dev:
+    external: true
